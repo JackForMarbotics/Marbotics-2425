@@ -1,0 +1,81 @@
+package org.firstinspires.ftc.teamcode;
+
+// Program Notes: This is a simple TeleOP program for mecanum wheel drive with a field centric view
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+@TeleOp(name="TeleOPArmTest", group="Linear Opmode")
+
+public class TeleOpArmTest extends LinearOpMode {
+
+<RevRoboticsCoreHexMotor name="arm" port="2"/>
+<Servo name="base" port="0"/>
+<ControlHubImuBHI260AP name="imu" port="0" bus="0"/>
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor RevRoboticsCoreHexMotor;
+        //ARM & WRIST
+        manualArmPower = gamepad1.right_trigger - gamepad1.left_trigger;
+        if (Math.abs(manualArmPower) > armManualDeadband) {
+            if (!manualMode) {
+                armLeft.setPower(0.0);
+                armLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                manualMode = true;
+            }
+            armLeft.setPower(manualArmPower);
+               // Define and initialize ALL installed servos.
+        leftClaw  = hardwareMap.get(DcMotor.class, "claw");
+        leftClaw.setPosition(DcMotor.class, "claw");
+        else {
+            if (gamepad2)
+            armLeft.setTargetPosition(armLeft.getCurrentPosition());
+            claw.setPower(1.0);
+            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            manualMode = false;
+        }
+
+        }
+        else {
+            if (manualMode) {
+                armLeft.setTargetPosition(armLeft.getCurrentPosition());
+                armLeft.setPower(1.0);
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                manualMode = false;
+            }
+            
+            //preset buttons
+            if (gamepad1.x) {
+                armLeft.setTargetPosition(armHomePosition);
+                armLeft.setPower(1.0);
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            else if (gamepad1.y) {
+                armLeft.setTargetPosition(armIntakePosition);
+                armLeft.setPower(-1.0);
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            else if (gamepad1.left_trigger)
+                armLeft.setTargetPosition(armIntakePosition);
+                armLeft.setPower(-1.0);
+                armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            else if (gamepad1.right_trigger)
+            armLeft.setTargetPosition(armIntakePosition);
+            armLeft.setPower(-1.0);
+            armLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        }
+        
+        //Re-zero encoder button
+        if (gamepad1.start) {
+            armLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            armLeft.setPower(0.0);
+            manualMode = false;
+        }
+}
