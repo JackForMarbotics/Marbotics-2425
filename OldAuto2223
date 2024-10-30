@@ -1,0 +1,210 @@
+/* package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+
+@Autonomous(name="D_Auto_Mecanum_V4_2", group="Auto")
+public class D_Auto_Mecanum_V4_2 extends LinearOpMode {
+
+    private ElapsedTime runtime = new ElapsedTime();
+    
+    private DcMotor lf_Motor;
+    private DcMotor rf_Motor;
+    private DcMotor lr_Motor;
+    private DcMotor rr_Motor;
+
+    //private Servo claw1;
+    //private Servo claw2;
+
+    //private ColorSensor color;
+    //private DistanceSensor colorDistance;
+    
+    //static final double HALF_POWER = -0.5;
+   // static final double TURN_POWER = -0.3;
+    //static final double APPROACH_POWER = -0.2;
+    
+    // Set encoder position variables
+    //int lf_Position, rf_Position, lr_Position, rr_Position;
+
+    // Method for getting encoder positions
+    public void encoderHost() {
+        lf_Position = -lf_Motor.getCurrentPosition();
+        rf_Position = rf_Motor.getCurrentPosition();
+        lr_Position = -lr_Motor.getCurrentPosition();
+        rr_Position = rr_Motor.getCurrentPosition();
+    }
+
+    // Set power for all motors method
+    public void allMotors(double power) {
+        lf_Motor.setPower(power);
+        rf_Motor.setPower(power);
+        lr_Motor.setPower(power);
+        rr_Motor.setPower(power);
+    }
+
+    // Set power for left motors method
+    public void leftMotors(double power) {
+        lf_Motor.setPower(power);
+        lr_Motor.setPower(power);
+    }
+
+    // Set power for right motors method
+    public void rightMotors(double power) {
+        rf_Motor.setPower(power);
+        rr_Motor.setPower(power);
+    }
+
+    // Stop all motors method
+    public void stopMotors() {
+        lf_Motor.setPower(0);
+        rf_Motor.setPower(0);
+        lr_Motor.setPower(0);
+        rr_Motor.setPower(0);
+    }
+
+    // Reset encoders method
+    public void resetEncoders() {
+        lf_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); rf_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); lr_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); rr_Motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lf_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); rf_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); lr_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); rr_Motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    
+        encoderHost();
+    }
+
+    @Override
+    public void runOpMode() {
+        
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Ready to run");
+        telemetry.update();
+        
+        // Map hardware
+
+        // Retrieve the IMU from the hardware map, this is from a guide on Mecanum drive, this can be used as a gyro sensor
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        // Technically this is the default, however specifying it is clearer
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        // Without this, data retrieving from the IMU throws an exception
+        imu.initialize(parameters);
+        botHeading = -imu.getAngularOrientation().firstAngle;
+        
+        lf_Motor = hardwareMap.dcMotor.get("left_motorFront");
+        rf_Motor = hardwareMap.dcMotor.get("right_motorFront");
+        lr_Motor = hardwareMap.dcMotor.get("left_motorRear");
+        rr_Motor = hardwareMap.dcMotor.get("right_motorRear");
+
+        claw1 = hardwareMap.get(Servo.class, "claw_servo1");
+        claw2 = hardwareMap.get(Servo.class, "claw_servo2");
+
+        color = hardwareMap.get(ColorSensor.class, "color_sensor");
+        colorDistance = hardwareMap.get(DistanceSensor.class, "color_sensor");
+        
+        // Reverse right side motors
+        rf_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rr_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        
+        resetEncoders();
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        claw1.setPosition(0.9);
+        claw2.setPosition(0.1);
+        
+        sleep(1000);
+
+        // Start driving forwards
+        allMotors(APPROACH_POWER);
+
+        // Move to position roughly in front of cone
+        while ((lf_Position + rf_Position + lr_Position + rr_Position / 4) < 2_800) {
+            encoderHost();
+    
+            telemetry.addData("Status", lf_Position);
+            telemetry.update();
+        }
+        
+        // Move to precise position using distance aspect of the color sensor
+        //while (colorDistance.getDistance(DistanceUnit.INCH) > 2.15) {
+        //    telemetry.addData("Color Distance", colorDistance.getDistance(DistanceUnit.INCH));
+        //    telemetry.update();
+        //}
+
+        resetEncoders();
+
+        // Allow the robot to move somewhat closer to the cone due to the limitations of the distance aspect of the color distance sensor
+        while ((lf_Position + rf_Position + lr_Position + rr_Position / 4) < 360) {
+            encoderHost();
+    
+            telemetry.addData("Status", lf_Position);
+            telemetry.update();
+        }
+        
+        stopMotors(); resetEncoders();
+
+        claw1.setPosition(0.4);
+        claw2.setPosition(0.7);
+
+        if (color.red() > color.green() && color.red() > color.blue()) { // If RED
+            
+            telemetry.addData("Color", "Red");
+            telemetry.update();
+            
+            // Strafe to the left
+            lf_Motor.setPower(-APPROACH_POWER);
+            rf_Motor.setPower(APPROACH_POWER);
+            lr_Motor.setPower(APPROACH_POWER);
+            rr_Motor.setPower(-APPROACH_POWER);
+
+            while ((lr_Position + rr_Position / 2) < 3_500) {
+                encoderHost();
+        
+                telemetry.addData("lf", lf_Position);
+                telemetry.addData("rf", rf_Position);
+                telemetry.addData("lr", lr_Position);
+                telemetry.addData("rr", rr_Position);
+                telemetry.update();
+            }
+
+            stopMotors(); resetEncoders();
+
+        } else if (color.green() > color.red() && color.green() > color.blue()) { // If GREEN
+        
+            telemetry.addData("Color", "Green");
+            telemetry.update();
+
+            // Strafe to the right
+            lf_Motor.setPower(APPROACH_POWER);
+            rf_Motor.setPower(-APPROACH_POWER);
+            lr_Motor.setPower(-APPROACH_POWER);
+            rr_Motor.setPower(APPROACH_POWER);
+
+            while ((lf_Position + rr_Position / 2) < 1_200) {
+                encoderHost();
+        
+                telemetry.addData("Status", lf_Position);
+                telemetry.addData("Status", rr_Position);
+                telemetry.update();
+            }
+
+            stopMotors(); resetEncoders();
+        } else { // If BLUE
+        
+            telemetry.addData("Color", "Blue");
+            telemetry.update();
+        }
+
+        stopMotors(); resetEncoders();
+    }
+} */
