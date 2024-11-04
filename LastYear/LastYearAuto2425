@@ -39,8 +39,8 @@ public class Auto_V2RedWAprilTag extends LinearOpMode {
         claw2 = hardwareMap.servo.get("claw2");
 
         
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftRearMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
         
         waitForStart();
         
