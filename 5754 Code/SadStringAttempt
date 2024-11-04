@@ -1,0 +1,94 @@
+robot commands
+// this file is a list of basic commands for the robot, to be used in future files by junior programers
+
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+@TeleOp(name="Robot", group="Linear Opmode")
+
+ // Use this method as a form of print statement for the robot, telemetry messages will appear in the bottom left corner of the driver station screen
+    public void telemetryUpdate(String input1, String input2) {
+        telemetry.addData(input1, input2);
+        telemetry.update();
+    }
+
+    public void telemetryAdd(String input1, String input2) {
+        telemetry.addLine()
+        .addData(input1, input2);
+        telemetry.update();
+    }
+
+    // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+
+    private DcMotor lf_Motor;
+    private DcMotor lr_Motor;
+    private DcMotor rf_Motor;
+    private DcMotor rr_Motor;
+
+    @Override
+    public void runOpMode() {
+
+        telemetryUpdate("Status", "Initialized");
+
+        // Map hardware
+
+        // Retrieve the IMU from the hardware map, this is from a guide on Mecanum drive, this can be used as a gyro sensor
+        BNO055IMU imu = hardwareMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        // Technically this is the default, however specifying it is clearer
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        // Without this, data retrieving from the IMU throws an exception
+        imu.initialize(parameters);
+
+        lf_Motor = hardwareMap.dcMotor.get("left_motorFront");
+        lr_Motor = hardwareMap.dcMotor.get("left_motorRear");
+        rf_Motor = hardwareMap.dcMotor.get("right_motorFront");
+        rr_Motor = hardwareMap.dcMotor.get("right_motorRear");
+
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRearMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        //Define different types of movement for the robot to make
+
+        public Student(String fName, String lName, int grade)
+        {
+        leftFrontMotor.setPower(0.5);
+        rightFrontMotor.setPower(0.5);
+        leftRearMotor.setPower(0.5);
+        rightRearMotor.setPower(0.5);
+        sleep(1000) = forward;
+
+        leftFrontMotor.setPower(-0.5);
+        rightFrontMotor.setPower(0.5);
+        leftRearMotor.setPower(-0.5);
+        rightRearMotor.setPower(0.5);
+        sleep(1000)  = left;
+
+        leftFrontMotor.setPower(0.5);
+        rightFrontMotor.setPower(0.5);
+        leftRearMotor.setPower(0.5);
+        rightRearMotor.setPower(0.5);
+        sleep(1000)  = right;
+        }
+    
+        waitForStart();
+     /*
+     This is a toString for the Student class. It returns a String
+     representation of the object, which includes the fields
+     in that object.
+     */
+    public String toString()
+    {
+        return "forward" + "left" + "right";
+    }
