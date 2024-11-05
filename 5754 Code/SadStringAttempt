@@ -56,8 +56,8 @@ import com.qualcomm.robotcore.util.Range;
         rf_Motor = hardwareMap.dcMotor.get("right_motorFront");
         rr_Motor = hardwareMap.dcMotor.get("right_motorRear");
 
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftRearMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
 
         //Define different types of movement for the robot to make
 

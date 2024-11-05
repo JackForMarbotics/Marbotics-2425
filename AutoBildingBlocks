@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="AutoBlueFar2425", group="Auto")
+@Autonomous(name="AutoBildingBlocks", group="Auto")
 
-public class AutoBlueFar2425 extends LinearOpMode {
+public class AutoBildingBlocks extends LinearOpMode {
 
     DcMotor leftFrontMotor;
     DcMotor rightFrontMotor;
@@ -101,8 +101,6 @@ public void turnLeft()
         //this is when the robot starts to move
 
         sleep(100);
-
-        stopMotors();
 
         sleep(50);
 
