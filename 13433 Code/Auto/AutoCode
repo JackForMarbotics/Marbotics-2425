@@ -1,1 +1,46 @@
-//Code
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+@Autonomous(name="AutoCode", group="Auto")
+
+public class AutoCode extends LinearOpMode {
+
+    DcMotor leftFrontMotor;
+    DcMotor rightFrontMotor;
+    DcMotor leftRearMotor;
+    DcMotor rightRearMotor;
+    Double turnPower = .6;
+
+
+ public void stopMotors() {
+            leftFrontMotor.setPower(0);
+            rightFrontMotor.setPower(0);
+            leftRearMotor.setPower(0);
+            rightRearMotor.setPower(0);
+        }
+
+    public void runOpMode() {
+
+        telemetry.addData("status", "ready to run");
+        telemetry.update();
+
+        leftFrontMotor = hardwareMap.dcMotor.get("left_motorFront");
+        rightFrontMotor = hardwareMap.dcMotor.get("right_motorFront");
+        leftRearMotor = hardwareMap.dcMotor.get("left_motorRear");
+        rightRearMotor = hardwareMap.dcMotor.get("right_motorRear");
+      //  claw1 = hardwareMap.servo.get("claw1");
+      // claw2 = hardwareMap.servo.get("claw2");
+
+        
+        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
+        
+        waitForStart();
+
+
+    }
