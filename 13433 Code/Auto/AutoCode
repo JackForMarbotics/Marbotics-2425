@@ -33,9 +33,7 @@ public class AutoCode extends LinearOpMode {
         rightFrontMotor = hardwareMap.dcMotor.get("right_motorFront");
         leftRearMotor = hardwareMap.dcMotor.get("left_motorRear");
         rightRearMotor = hardwareMap.dcMotor.get("right_motorRear");
-      //  claw1 = hardwareMap.servo.get("claw1");
-      // claw2 = hardwareMap.servo.get("claw2");
-
+     
         
         leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
         leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
