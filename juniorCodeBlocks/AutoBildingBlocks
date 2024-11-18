@@ -16,16 +16,40 @@ public class AutoBildingBlocks extends LinearOpMode {
     DcMotor rightRearMotor;
     //Servo Crunches;
     //Servo Crunches2;    
-    Double turnPower = .6;
 
-
- public void stopMotors() 
-{
-  leftFrontMotor.setPower(0);
-  rightFrontMotor.setPower(0);
-  leftRearMotor.setPower(0);
-  rightRearMotor.setPower(0);
+public class billdingBlocks {
+  private double leftFrontMotorPower;
+  private double rightFrontMotorPower;
+  private double leftRearMotorPower;
+  private double rightRearMotorPower;
+  public void (double LF,double RF,double LR,double RR) 
+  {
+  leftFrontMotorPower = LF;
+  rightFrontMotorPower = RF;
+  leftRearMotorPower = FR;
+  rightRearMotorPower = RR;
+  }
+    public move ()
+    {
+      leftFrontMotor.setPower(leftFrontMotorPower);
+      rightFrontMotor.setPower(rightFrontMotorPower);
+      leftRearMotor.setPower(leftRearMotorPower);
+      rightRearMotor.setPower(rightRearMotorPower); 
+    }
+    return move;
 }
+
+
+
+
+/*
+public void stopMotors() 
+  {
+    leftFrontMotor.setPower(0);
+    rightFrontMotor.setPower(0);
+    leftRearMotor.setPower(0);
+    rightRearMotor.setPower(0);
+  }
 
 public void moveForwards()
 {
@@ -73,7 +97,7 @@ public void turnLeft()
   sleep (100);
   stopMotors();
 }
-
+*/
 
     public void runOpMode() {
 
