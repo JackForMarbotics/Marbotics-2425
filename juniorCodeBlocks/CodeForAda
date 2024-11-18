@@ -1,0 +1,63 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+@Autonomous(name="AutoCode", group="Auto")
+
+public class AutoCode extends LinearOpMode {
+
+    DcMotor leftFrontMotor;
+    DcMotor rightFrontMotor;
+    DcMotor leftRearMotor;
+    DcMotor rightRearMotor;
+
+ public void stopMotors() {
+            leftFrontMotor.setPower(0);
+            rightFrontMotor.setPower(0);
+            leftRearMotor.setPower(0);
+            rightRearMotor.setPower(0);
+        }
+        
+        billdingBlocks forwardsMove = new billdingBlocks (0.5,0.5,0.5,0.5);
+        billdingBlocks backwordsMove = new billdingBlocks (-0.5,-0.5,-0.5,-0.5);
+        billdingBlocks strafeLeftMove = new billdingBlocks (-0.5,0.5,0.5,-0.5);
+        billdingBlocks strafeRightMove = new billdingBlocks (0.5,-0.5,-0.5,0.5);
+
+    public void runOpMode() {
+
+        telemetry.addData("status", "ready to run");
+        telemetry.update();
+
+        leftFrontMotor = hardwareMap.dcMotor.get("left_motorFront");
+        rightFrontMotor = hardwareMap.dcMotor.get("right_motorFront");
+        leftRearMotor = hardwareMap.dcMotor.get("left_motorRear");
+        rightRearMotor = hardwareMap.dcMotor.get("right_motorRear");
+     
+        
+        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
+        
+        waitForStart();
+
+        forwardsMove; 
+        backwordsMove;
+        strafeLeftMove;
+        strafeLeftMove;
+        strafeRightMove;
+
+    }
+
+        
+        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
+        
+        waitForStart();
+        
+       /* claw1.setPosition(0.5);
+       claw2.setPosition(0.4); */
+        //wait for 10 seconds
+        sleep (9550);
