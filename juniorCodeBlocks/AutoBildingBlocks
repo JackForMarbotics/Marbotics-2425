@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="AutoBildingBlocks", group="Auto")
-
 public class AutoBildingBlocks extends LinearOpMode {
 
     DcMotor leftFrontMotor;

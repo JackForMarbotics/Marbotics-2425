@@ -61,3 +61,4 @@ public class AutoCode extends LinearOpMode {
        claw2.setPosition(0.4); */
         //wait for 10 seconds
         sleep (9550);
+}
