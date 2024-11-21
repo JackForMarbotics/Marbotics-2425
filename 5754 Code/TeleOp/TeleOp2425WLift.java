@@ -77,7 +77,7 @@ public class TeleOp2425WLift extends LinearOpMode {
         liftMotor = hardwareMap.dcMotor.get("liftMotor");
        //spinny = hardwareMap.crservo.get("spinny");
         //Reverse right side motors
-        rf_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //rf_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
         rr_Motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetryUpdate("Status", "Waiting for start");
@@ -92,8 +92,8 @@ public class TeleOp2425WLift extends LinearOpMode {
             while (opModeIsActive()) {
 
                 // Setup variables for gamepad inputs
-                double y = gamepad1.left_stick_y; // Remember, this is reversed
-                double x = -gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
+                double x = gamepad1.left_stick_y; // Remember, this is reversed
+                double y = -gamepad1.left_stick_x; // Counteract imperfect strafing
                 double rx = -gamepad1.right_stick_x;
 
                 // Read inverse IMU heading, as the IMU heading is CW positive
@@ -150,13 +150,21 @@ public class TeleOp2425WLift extends LinearOpMode {
                 Crunches.setPower(0);
                 }
                 if (gamepad2.y) {
-                    Crunches.setPower(0.75);
+                    Crunches.setPower(1);
                 }
                 else {
                 Crunches.setPower(0);
                 }
                 if(gamepad2.b) {
-                    Crunches2.setPower(.75);
+                    Crunches2.setPower(1);
+                }
+                //straight ahead movement
+                if(gamepad1.x){
+                lf_Motor.setPower(-.75);
+                lr_Motor.setPower(-.75);
+                rf_Motor.setPower(.75);
+                rr_Motor.setPower(.75);
+
                 }
                 
                 
