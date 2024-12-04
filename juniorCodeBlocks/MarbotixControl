@@ -25,6 +25,36 @@ public class AutoBlueFar2425 extends LinearOpMode {
             leftRearMotor.setPower(0);
             rightRearMotor.setPower(0);
         }
+    public void moveFwd(int x)    {
+        leftFrontMotor.setPower(.75);
+        rightFrontMotor.setPower(.75);
+        leftRearMotor.setPower(.75);
+        rightRearMotor.setPower(.75);
+
+        sleep (x);
+
+        stopMotors();
+        }
+    public void turnLeft(int x) { 
+        leftFrontMotor.setPower(turnPower);
+        rightFrontMotor.setPower(-turnPower);
+        leftRearMotor.setPower(turnPower);
+        rightRearMotor.setPower(-turnPower);
+
+        sleep(x);
+
+        stopMotors();
+        }
+     public void turnRight(int x) { 
+        leftFrontMotor.setPower(-turnPower);
+        rightFrontMotor.setPower(turnPower);
+        leftRearMotor.setPower(-turnPower);
+        rightRearMotor.setPower(turnPower);
+
+        sleep(x);
+
+        stopMotors();
+        }
 
     public void runOpMode() {
 
@@ -35,16 +65,22 @@ public class AutoBlueFar2425 extends LinearOpMode {
         rightFrontMotor = hardwareMap.dcMotor.get("right_motorFront");
         leftRearMotor = hardwareMap.dcMotor.get("left_motorRear");
         rightRearMotor = hardwareMap.dcMotor.get("right_motorRear");
-      //  claw1 = hardwareMap.servo.get("claw1");
-      // claw2 = hardwareMap.servo.get("claw2");
+      
 
         
         leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
         leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
         
         waitForStart();
+                
+        sleep (1000);
+
+        moveFwd(1000);
+        turnRight(800);
+        moveFwd(1000);
+        turnLeft(600);
         
-       /* claw1.setPosition(0.5);
-       claw2.setPosition(0.4); */
-        
-        sleep (9550);
+
+        }
+
+}
