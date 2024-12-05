@@ -1,63 +1,92 @@
-package org.firstinspires.ftc.teamcode;
+package teamcode2425;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous(name="AutoBlueFar2425", group="Auto")
-
-public class AutoBlueFar2425 extends LinearOpMode {
-
+@Autonomous(name = "Marbotix", group = "Auto")
+public class Marbotix extends LinearOpMode {
     DcMotor leftFrontMotor;
     DcMotor rightFrontMotor;
     DcMotor leftRearMotor;
     DcMotor rightRearMotor;
-    //Servo Crunches;
-    //Servo Crunches2;    
-    Double turnPower = .6;
 
+    double turnPower = 0.92;
 
- public void stopMotors() {
-            leftFrontMotor.setPower(0);
-            rightFrontMotor.setPower(0);
-            leftRearMotor.setPower(0);
-            rightRearMotor.setPower(0);
-        }
-    public void moveFwd(int x)    {
-        leftFrontMotor.setPower(.75);
-        rightFrontMotor.setPower(.75);
-        leftRearMotor.setPower(.75);
-        rightRearMotor.setPower(.75);
+    public void stopMotors() {
+        leftFrontMotor.setPower(0);
+        rightFrontMotor.setPower(0);
+        leftRearMotor.setPower(0);
+        rightRearMotor.setPower(0);
+    }
 
-        sleep (x);
+    public void moveFwd(int time) {
+        leftFrontMotor.setPower(0.75);
+        rightFrontMotor.setPower(0.75);
+        leftRearMotor.setPower(0.75);
+        rightRearMotor.setPower(0.75);
+
+        sleep(time);
 
         stopMotors();
-        }
-    public void turnLeft(int x) { 
+    }
+
+    public void moveBack(int time) {
+        leftFrontMotor.setPower(-0.75);
+        rightFrontMotor.setPower(-0.75);
+        leftRearMotor.setPower(-0.75);
+        rightRearMotor.setPower(-0.75);
+
+        sleep(time);
+
+        stopMotors();
+    }
+
+    public void turnLeft(int time) {
         leftFrontMotor.setPower(turnPower);
         rightFrontMotor.setPower(-turnPower);
         leftRearMotor.setPower(turnPower);
         rightRearMotor.setPower(-turnPower);
 
-        sleep(x);
+        sleep(time);
 
         stopMotors();
-        }
-     public void turnRight(int x) { 
+    }
+
+    public void turnRight(int time) {
         leftFrontMotor.setPower(-turnPower);
         rightFrontMotor.setPower(turnPower);
         leftRearMotor.setPower(-turnPower);
         rightRearMotor.setPower(turnPower);
 
-        sleep(x);
+        sleep(time);
 
         stopMotors();
-        }
+    }
+    public void strafeRight(int time) {
+        leftFrontMotor.setPower(0.75);
+        rightFrontMotor.setPower(-0.75);
+        leftRearMotor.setPower(-0.75);
+        rightRearMotor.setPower(0.75);
 
+        sleep(time);
+
+        stopMotors();
+    }
+    public void strafeLeft(int time) {
+        leftFrontMotor.setPower(-0.75);
+        rightFrontMotor.setPower(0.75);
+        leftRearMotor.setPower(0.75);
+        rightRearMotor.setPower(-0.75);
+
+        sleep(time);
+
+        stopMotors();
+    }
+    
+    @Override
     public void runOpMode() {
-
         telemetry.addData("status", "ready to run");
         telemetry.update();
 
@@ -65,22 +94,33 @@ public class AutoBlueFar2425 extends LinearOpMode {
         rightFrontMotor = hardwareMap.dcMotor.get("right_motorFront");
         leftRearMotor = hardwareMap.dcMotor.get("left_motorRear");
         rightRearMotor = hardwareMap.dcMotor.get("right_motorRear");
-      
 
-        
-        leftFrontMotor.setDirection(DcMotor.Direction.REVERSE);
-        leftRearMotor.setDirection(DcMotor.Direction.REVERSE);
-        
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
         waitForStart();
-                
-        sleep (1000);
 
-        moveFwd(1000);
-        turnRight(800);
-        moveFwd(1000);
-        turnLeft(600);
+        sleep(1000);
+
+        moveFwd(750);
+        strafeLeft(1100);
+        sleep(500);
+        moveFwd(750);
+        sleep(250);
+        strafeLeft(500);
+        sleep(500);
+        moveBack(1500);
+        sleep(250);
+        turnRight(500);
+        sleep(500);
+        moveBack(400);
+        moveFwd(3750);
+        sleep(250);
+        turnLeft(500);
+        sleep(500);
+        moveBack(500);
+        sleep(500);
         
-
-        }
-
+    }
 }
+
