@@ -20,7 +20,7 @@ public class Marbotix extends LinearOpMode {
         leftRearMotor.setPower(0);
         rightRearMotor.setPower(0);
     }
-
+        //forward command, for a set amount of milliseconds.
     public void moveFwd(int time) {
         leftFrontMotor.setPower(0.75);
         rightFrontMotor.setPower(0.75);
@@ -31,7 +31,7 @@ public class Marbotix extends LinearOpMode {
 
         stopMotors();
     }
-
+        //Backward command, for a set amount of milliseconds.
     public void moveBack(int time) {
         leftFrontMotor.setPower(-0.75);
         rightFrontMotor.setPower(-0.75);
@@ -42,7 +42,7 @@ public class Marbotix extends LinearOpMode {
 
         stopMotors();
     }
-
+        //Turn Left command, for a set amount of milliseconds. set to 500ms for right angle turn
     public void turnLeft(int time) {
         leftFrontMotor.setPower(turnPower);
         rightFrontMotor.setPower(-turnPower);
@@ -53,7 +53,7 @@ public class Marbotix extends LinearOpMode {
 
         stopMotors();
     }
-
+        //Turn right command, for a set amount of milliseconds. set to 500ms for right angle turn
     public void turnRight(int time) {
         leftFrontMotor.setPower(-turnPower);
         rightFrontMotor.setPower(turnPower);
@@ -64,6 +64,7 @@ public class Marbotix extends LinearOpMode {
 
         stopMotors();
     }
+        //Robot with slide sideways (right) for a set amount of milliseconds.
     public void strafeRight(int time) {
         leftFrontMotor.setPower(0.75);
         rightFrontMotor.setPower(-0.75);
@@ -74,6 +75,8 @@ public class Marbotix extends LinearOpMode {
 
         stopMotors();
     }
+        //Robot with slide sideways (left) for a set amount of milliseconds.
+
     public void strafeLeft(int time) {
         leftFrontMotor.setPower(-0.75);
         rightFrontMotor.setPower(0.75);
