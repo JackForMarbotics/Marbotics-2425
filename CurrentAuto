@@ -1,1 +1,32 @@
+package org.firstinspires.ftc.teamcode.Auto;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Blinker;
+import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.mechanisms.Motors;
+
+@Autonomous(name="ImJustABebeh", group="Auto")
+
+public class ImJustABebeh {
+    private Blinker control_Hub;
+    private Gyroscope imu;
+    private DcMotor lf_motor;
+    private DcMotor lr_motor;
+    private DcMotor rf_motor;
+    private DcMotor rr_motor;
+
+    Motors movement = new Motors();
+    //@Override
+    public void init(){
+      
+    }
+    
+    public void runOpMode(){
+        movement.forward(1500);
+        movement.strafe(1500);
+        movement.turn(1500);
+    }
+    
+}
